@@ -57,8 +57,35 @@ class TDPolicyPredictor(TDAlgorithmBase):
         #
         # self._v.set_value(x_cell_coord, y_cell_coord, new_v)
 
-        # Example to show how to extract coordinates; this does not do anything useful
-        coords = episode.state(0).coords()
-        new_v = 0
-        self._v.set_value(coords[0], coords[1], new_v)
+        num_steps = episode.number_of_steps()
+
+        for t in range(num_steps):
+
+            # Current state S_t
+            state_t = episode.state(t)
+            coords_t = state_t.coords()
+            x_t, y_t = coords_t[0], coords_t[1]
+
+            # Immediate reward from taking action at S_t
+            reward_tp1 = episode.reward(t)
+
+            # Current estimate V(S_t)
+            v_t = self._v.value(x_t, y_t)
+
+            # If this is the last stored transition, the next state was terminal
+            if t == num_steps - 1:
+                td_target = reward_tp1
+            else:
+                # Next state S_{t+1}
+                state_tp1 = episode.state(t + 1)
+                coords_tp1 = state_tp1.coords()
+                x_tp1, y_tp1 = coords_tp1[0], coords_tp1[1]
+
+                v_tp1 = self._v.value(x_tp1, y_tp1)
+                td_target = reward_tp1 + self._gamma * v_tp1
+
+            # TD(0) update
+            new_v = v_t + self._alpha * (td_target - v_t)
+
+            self._v.set_value(x_t, y_t, new_v)
 
