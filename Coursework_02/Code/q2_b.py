@@ -24,7 +24,7 @@ from p1.low_level_actions import LowLevelActionType
 from p1.low_level_policy_drawer import LowLevelPolicyDrawer
 
 if __name__ == '__main__':
-    airport_map, drawer_height = test_2x2_scenario()
+    airport_map, drawer_height = test_two_row_scenario()#test_2x2_scenario()
 
     # Show the scenario        
     airport_map_drawer = AirportMapDrawer(airport_map, drawer_height)
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     policy_learner.set_initial_policy(pi)
 
     # These values worked okay for me.
-    policy_learner.set_alpha(0.1)
+    policy_learner.set_alpha(0.05)
     policy_learner.set_experience_replay_buffer_size(64)
     policy_learner.set_number_of_episodes(32)
     

@@ -64,6 +64,6 @@ if __name__ == '__main__':
     
     for i in range(num_values):
         td_drawers[i].update()
-        td_drawers[i].save_screenshot(f"td-{int(alpha_values[i]*10):03}-pe.pdf")
+        td_drawers[i].save_screenshot(f"td-{int(alpha_values[i]*100):04}-pe.pdf")
     
     
