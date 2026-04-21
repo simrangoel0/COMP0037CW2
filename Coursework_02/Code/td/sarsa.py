@@ -43,9 +43,15 @@ class SARSA(TDController):
             s_prime = episode.state(step_count)
             coords_prime = s_prime.coords()
 
-            # Q2x: Apply SARSA to compute / update new_q
-            new_q = 0
-           
+            # Get the next action A' from the episode 
+            a_prime = episode.action(step_count)
+
+            # Get current Q(S, A)
+            current_q = self._Q[coords[0], coords[1], a]
+
+            # Updat SARSA
+            new_q = current_q + self._alpha * (reward + self._gamma * self._Q[coords_prime[0], coords_prime[1], a_prime] - current_q)
+                    
             # Update the grid
             self._update_q_and_policy(coords, a, new_q)
 

@@ -65,4 +65,3 @@ if __name__ == '__main__':
             v_renderers[l].update()
             p_renderers[l].update()
             pi[l].set_epsilon(1/math.sqrt(1+0.25*i))
-        
