@@ -47,7 +47,7 @@ if __name__ == '__main__':
     value_function_drawer = ValueFunctionDrawer(policy_learner.value_function(), drawer_height)    
     greedy_optimal_policy_drawer = LowLevelPolicyDrawer(policy_learner.policy(), drawer_height)
     
-    for i in range(40):
+    for i in range(1): # change here for 1 , 5 , 10, 40, 100
         print(i)
         policy_learner.find_policy()
         value_function_drawer.update()
@@ -55,3 +55,8 @@ if __name__ == '__main__':
         pi.set_epsilon(1/math.sqrt(1+0.25*i))
         print(f"epsilon={1/math.sqrt(1+i)};alpha={policy_learner.alpha()}")
         
+    # screenshot policy and value 
+    greedy_optimal_policy_drawer.wait_for_key_press()
+    greedy_optimal_policy_drawer.save_screenshot("q_learning_greedy_policy32.png")
+    greedy_optimal_policy_drawer.wait_for_key_press()
+    value_function_drawer.save_screenshot("q_learning_value_function32.png")
